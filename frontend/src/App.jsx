@@ -6,7 +6,7 @@ import Item from "./components/Item";
 import { useApp } from "./ThemedApp";
 
 export default function App() {
-  const { showForm } = useApp();
+  const { showForm, setGlobalMsg } = useApp();
 
   const [data, setData] = useState([
     { id: 3, content: "Yay, interesting.", name: "Chris" },
@@ -16,11 +16,13 @@ export default function App() {
 
   const remove = id => {
     setData(data.filter(item => item.id !== id));
+    setGlobalMsg("An item deleted.");
   };
 
   const add = (content, name) => {
     const id = data[0].id + 1;
     setData([{id, content, name}, ...data]);
+    setGlobalMsg("An item added.");
   };
 
   return (
