@@ -11,7 +11,7 @@ const { CommentSeeder } = require("./CommentSeeder");
         await CommentSeeder();
     } catch(e) {
         console.log(e);
-        process.exit();
+        process.exit(1);
     } finally {
         await prisma.$disconnect();
     }
