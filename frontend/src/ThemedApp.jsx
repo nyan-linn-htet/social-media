@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "react-query";
 import { deepPurple, grey } from "@mui/material/colors";
 import Template from "./Template";
 import Home from "./pages/Home";
@@ -50,6 +51,8 @@ const router = createBrowserRouter([
     },
 ]);
 
+export const queryClient = new QueryClient();
+
 export default function ThemedApp() {
     const [showForm, setShowForm] = useState(false);
     const [mode, setMode] = useState("dark");
@@ -73,7 +76,9 @@ export default function ThemedApp() {
     return (
         <ThemeProvider theme={theme}>
             <AppContext.Provider value={{ showForm, setShowForm, mode, setMode, showDrawer, setShowDrawer, globalMsg, setGlobalMsg, auth, setAuth }}>
-                <RouterProvider router={router} />
+                <QueryClientProvider client={queryClient}>
+                    <RouterProvider router={router} />
+                </QueryClientProvider>
                 <CssBaseline />
             </AppContext.Provider>
         </ThemeProvider>
